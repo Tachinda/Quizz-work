@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="CONTENT-TYPE" content="text/html; charset=UTF-8">
+    </head>
+    <style>
+        body{
+            margin: 0;
+            padding:0;
+            background-color:  rgb(9, 9, 141);
+        }
+        p{
+            color: white;
+            font-size: 30px;
+            font-weight: bold;
+        }
+.flex{
+    background-color: rgb(9, 9, 141);
+display: flex;
+justify-content: space-around;
+}
+.btn{
+    
+    background-color: rgb(9, 9, 141); 
+    transition: 0.3s;
+    border-color: white;
+    color: white;
+    font-size: 20px;
+    border-radius: 8px;
+padding: 10px 20px;
+
+}
+.btn:hover {
+    background-color: rgb(45, 45, 180);
+}
+
+.btn.correct{
+    background-color: black;
+
+}
+.btn.wrong{
+
+background-color: black;
+}
+.submit{
+    margin-top: 2%;
+    display: flex;
+    justify-content:space-around;
+
+}
+.sub{ 
+    border-color: white;
+    color: white;
+    font-size: 28px;
+    background-color: blueviolet;
+            border-radius: 8px;
+            padding-left: 5%;
+            padding-right: 5%;
+}
+
+.btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.8;
+}
+
+    </style>
+    <body>
+        <p>Q1. Which African country was the first to host the FiFa World Cup </p>
+        <br>
+        <img src="https://th.bing.com/th/id/R.b7000ba4222420e9e410bfc33a57efef?rik=3lL6T78Qf56jOA&pid=ImgRaw&r=0" width="180px">
+        <br>
+        <br>
+        <div class="flex">
+            <button class="btn" data-correct="false">A. Cameroon</button>
+            <button class="btn" data-correct="true">B. South Africa</button>
+            <button class="btn" data-correct="false">C. Nigeria</button>
+            <button class="btn" data-correct="false">D. Ghana</button>
+        </div>
+        <br>
+        <br>
+        <p>Q2. Which year did Messi win his ballon d'or </p>
+        <br>
+        <img src=" https://tse2.mm.bing.net/th/id/OIP.BHStaNZAjg_bG3h-ViMC-gHaHa?r=0&rs=1&pid=ImgDetMain&o=7&rm=3" width="180px">
+        <br>
+        <br>
+        <div class="flex">
+            <button class="btn" data-correct="false">A. 1960</button>
+            <button class="btn" data-correct="false">B. 2006</button>
+            <button class="btn" data-correct="true">C. 2009</button>
+            <button class="btn" data-correct="false">D. 2015</button>
+        </div>
+        <br>
+        <br>
+        <p>Q3. Who is the highest top goal scorer in premier league history</p>
+        <br>
+        <img src="https://tse2.mm.bing.net/th/id/OIP.PwL2dVMTIdpHQRVI_WlosgHaEK?r=0&rs=1&pid=ImgDetMain&o=7&rm=3" width="180px">
+        <br>
+        <br>
+        <div class="flex">
+            <button class="btn" data-correct="false">A. Halland</button>
+            <button class="btn" data-correct="false">B. Rooney</button>
+            <button class="btn" data-correct="true">C. Shearer</button>
+            <button class="btn" data-correct="false">D. Ronaldo</button>
+        </div>
+        <br>
+        <br>
+         <p>Q4. Which club has the most Europa league in history</p>
+        <br>
+        <img src="https://m.media-amazon.com/images/S/pv-target-images/83181937ea9b54661056c689c705e493a51f5ed5f69c275b1c459faf243ae5be.jpg" width="180px">
+        <br>
+        <br>
+        <div class="flex">
+            <button class="btn" data-correct="true">A. Sevilla</button>
+            <button class="btn" data-correct="false">B. Real Madrid</button>
+            <button class="btn" data-correct="false">C. Liverpool</button>
+            <button class="btn" data-correct="false">D. Chelsea</button>
+        </div>
+        <br>
+        <p>Q5. Which team did Cameroon beat in the round of 16 to make in the quater final of the 1990 World Cup in Italy  </p>
+        <br>
+        <img src="https://tse3.mm.bing.net/th/id/OIP.qrS37IlsGqZ1FVV9bcSsfAHaE8?r=0&rs=1&pid=ImgDetMain&o=7&rm=3" width="180px">
+        <br>
+        <br>
+        <div class="flex">
+            <button class="btn" data-correct="false">A. Argentina</button>
+            <button class="btn" data-correct="false">B. England</button>
+            <button class="btn" data-correct="true">C. Colombia</button>
+            <button class="btn" data-correct="false">D. Brazil</button>
+        </div>
+        <br>
+        <br>
+        <div class="submit">
+        <button class="sub">Submit</button>
+        <button class="sub" style="background-color: green;" onclick="goToPage()">Restart</button>
+        </div>
+    </body>
+    <script>
+                function goToPage() {
+            // Redirect to another page
+            window.location.href = "firstquiz.html"; 
+        }
+   const questions = document.querySelectorAll('.flex');
+
+questions.forEach(question => {
+    const buttons = question.querySelectorAll('.btn');
+
+    buttons.forEach(button => {
+        button.addEventListener('click', () => {
+
+            buttons.forEach(btn => {
+                btn.classList.remove('correct', 'wrong');
+            });
+
+            // Check if the selected answer is correct
+            if (button.dataset.correct === "true") {
+                button.classList.add('correct');
+            } else {
+                button.classList.add('wrong');
+            }
+        });
+    });
+});
+
+document.querySelector('.sub').addEventListener('click', () => {
+    let score = 0;
+
+    questions.forEach(question => {
+        const selected = question.querySelector('.btn.correct');
+
+        if (selected) {
+            score++;
+        }
+    });
+
+    alert("Your mark is: " + score + " / " + questions.length);
+});
+
+</script>
+    </html>

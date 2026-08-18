@@ -1,0 +1,927 @@
+Absolutely. Let's take it slowly, as if you're just starting JavaScript. The good thing is that your quiz is a great example for learning JavaScript because it uses the most important beginner concepts: variables, loops, functions, events, conditions, and DOM manipulation.
+
+Here is the code again:
+
+const questions = document.querySelectorAll('.flex');
+
+questions.forEach(question => {
+    const buttons = question.querySelectorAll('.btn');
+
+    buttons.forEach(button => {
+        button.addEventListener('click', () => {
+
+            buttons.forEach(btn => {
+                btn.classList.remove('correct', 'wrong');
+            });
+
+            if (button.dataset.correct === "true") {
+                button.classList.add('correct');
+            } else {
+                button.classList.add('wrong');
+            }
+        });
+    });
+});
+
+document.querySelector('.sub').addEventListener('click', () => {
+    let score = 0;
+
+    questions.forEach(question => {
+        const selected = question.querySelector('.btn.correct');
+
+        if (selected) {
+            score++;
+        }
+    });
+
+    alert("Your mark is: " + score + " / " + questions.length);
+});
+
+1. First, understand what we're trying to do
+
+Your HTML has this structure:
+
+<div class="flex">
+    <button class="btn" data-correct="false">A. Cameroon</button>
+    <button class="btn" data-correct="true">B. South Africa</button>
+    <button class="btn" data-correct="false">C. Nigeria</button>
+    <button class="btn" data-correct="false">D. Ghana</button>
+</div>
+
+
+Think of each .flex as one question.
+
+So you have:
+
+.flex  → Question 1
+.flex  → Question 2
+.flex  → Question 3
+.flex  → Question 4
+.flex  → Question 5
+
+
+And inside each .flex, you have four .btn buttons.
+
+The JavaScript's job is basically:
+
+Find all questions
+       ↓
+Find the buttons inside each question
+       ↓
+When a button is clicked
+       ↓
+Remove the previous answer
+       ↓
+Check if the new answer is correct
+       ↓
+Color it green or red
+       ↓
+When Submit is clicked
+       ↓
+Count the correct answers
+       ↓
+Show the score
+
+2. document
+
+Let's start with this:
+
+document
+
+
+document basically means:
+
+The HTML page I'm currently working with.
+
+For example:
+
+document.querySelector(...)
+
+
+means:
+
+"Look inside my HTML page and find something."
+
+So JavaScript can interact with your HTML.
+
+3. querySelectorAll()
+
+Now look at:
+
+const questions = document.querySelectorAll('.flex');
+
+
+This is very important.
+
+.flex
+
+Remember that your HTML has:
+
+<div class="flex">
+
+
+So:
+
+document.querySelectorAll('.flex')
+
+
+means:
+
+Find all elements that have the class flex.
+
+Because you have five .flex elements, JavaScript finds all five.
+
+You can imagine:
+
+questions
+   ↓
+[Question 1, Question 2, Question 3, Question 4, Question 5]
+
+4. What does const mean?
+
+You wrote:
+
+const questions = ...
+
+
+const creates a variable.
+
+A variable is simply a container for storing something.
+
+For example:
+
+const name = "John";
+
+
+Now name contains:
+
+John
+
+
+In your code:
+
+const questions = document.querySelectorAll('.flex');
+
+
+You're basically saying:
+
+"Create a container called questions and put all my .flex elements inside it."
+
+5. forEach()
+
+Now we have:
+
+questions.forEach(question => {
+
+
+This might look scary to a beginner, but it's actually simple.
+
+forEach() means:
+
+Do something for every item.
+
+Suppose you have:
+
+const fruits = ["Apple", "Orange", "Banana"];
+
+
+You could do:
+
+fruits.forEach(fruit => {
+    console.log(fruit);
+});
+
+
+JavaScript goes through them one by one:
+
+Apple
+Orange
+Banana
+
+
+In your quiz:
+
+questions.forEach(question => {
+
+
+means:
+
+Go through each question, one at a time.
+
+So JavaScript does:
+
+Question 1
+Question 2
+Question 3
+Question 4
+Question 5
+
+6. What is question =>?
+
+This:
+
+question => {
+
+
+is called an arrow function.
+
+Don't worry too much about the name right now.
+
+It basically means:
+
+"For each question, do the following..."
+
+So:
+
+questions.forEach(question => {
+    // code here
+});
+
+
+means:
+
+For every question, run the code inside { }.
+
+You could write the same thing in an older style as:
+
+questions.forEach(function(question) {
+    // code here
+});
+
+
+For now, just remember:
+
+question => {
+
+
+means:
+
+"Here is what I want to do with each question."
+
+7. Finding the buttons
+
+Inside each question we have:
+
+const buttons = question.querySelectorAll('.btn');
+
+
+Remember:
+
+<div class="flex">
+    <button class="btn">A</button>
+    <button class="btn">B</button>
+    <button class="btn">C</button>
+    <button class="btn">D</button>
+</div>
+
+
+We already found one .flex.
+
+Now we want to find the .btn elements inside that particular question.
+
+That's what this does:
+
+question.querySelectorAll('.btn');
+
+
+It means:
+
+Find all .btn elements inside this question.
+
+So for Question 1:
+
+buttons
+   ↓
+[A, B, C, D]
+
+
+Then for Question 2:
+
+buttons
+   ↓
+[A, B, C, D]
+
+
+And so on.
+
+8. Another forEach()
+
+Now we have:
+
+buttons.forEach(button => {
+
+
+This means:
+
+Go through each button in this question.
+
+For example:
+
+Question 1
+     ↓
+A
+B
+C
+D
+
+
+JavaScript looks at:
+
+A
+then B
+then C
+then D
+
+
+One at a time.
+
+9. addEventListener()
+
+Now we get to something very important:
+
+button.addEventListener('click', () => {
+
+
+This means:
+
+Wait for the user to click this button.
+
+Think of it like telling JavaScript:
+
+"Hey JavaScript, watch this button. When someone clicks it, do something."
+
+For example:
+
+button.addEventListener('click', () => {
+    alert("You clicked me!");
+});
+
+
+When you click the button:
+
+You clicked me!
+
+
+appears.
+
+So in your quiz, we're watching every answer button.
+
+10. Removing the previous answer
+
+Inside the click event we have:
+
+buttons.forEach(btn => {
+    btn.classList.remove('correct', 'wrong');
+});
+
+
+This is the part that makes one answer per question work.
+
+Suppose the user first clicks:
+
+A. Cameroon
+
+
+It becomes red.
+
+Then they change their mind and click:
+
+B. South Africa
+
+
+We don't want both A and B highlighted.
+
+So before highlighting the new answer, we remove the old colors.
+
+This:
+
+buttons.forEach(btn => {
+
+
+means:
+
+Go through all four buttons in this question.
+
+Then:
+
+btn.classList.remove('correct', 'wrong');
+
+
+means:
+
+Remove the correct and wrong CSS classes from this button.
+
+11. Why classList?
+
+Look at your CSS:
+
+.btn.correct{
+    background-color: green;
+}
+
+.btn.wrong{
+    background-color: red;
+}
+
+
+You have two special classes:
+
+correct
+wrong
+
+
+When JavaScript does:
+
+button.classList.add('correct');
+
+
+the HTML effectively becomes:
+
+<button class="btn correct">
+
+
+Your CSS sees:
+
+.btn.correct
+
+
+and makes the button green.
+
+Similarly:
+
+button.classList.add('wrong');
+
+
+creates:
+
+<button class="btn wrong">
+
+
+and your CSS makes it red.
+
+12. Checking if the answer is correct
+
+Now we get to:
+
+if (button.dataset.correct === "true") {
+
+
+This is one of the most important parts.
+
+Look at your HTML:
+
+<button class="btn" data-correct="false">
+
+
+and:
+
+<button class="btn" data-correct="true">
+
+
+You created your own piece of information:
+
+data-correct
+
+
+For example:
+
+data-correct="true"
+
+
+means:
+
+This answer is correct.
+
+And:
+
+data-correct="false"
+
+
+means:
+
+This answer is wrong.
+
+13. What is dataset?
+
+JavaScript can read your:
+
+data-correct
+
+
+using:
+
+button.dataset.correct
+
+
+So if the button is:
+
+<button data-correct="true">
+
+
+then:
+
+button.dataset.correct
+
+
+gives:
+
+"true"
+
+
+If it is:
+
+<button data-correct="false">
+
+
+then it gives:
+
+"false"
+
+14. Understanding if
+
+This:
+
+if (button.dataset.correct === "true") {
+
+
+means:
+
+If this button's data-correct value is "true"...
+
+Then:
+
+button.classList.add('correct');
+
+
+So the button becomes green.
+
+Otherwise:
+
+else {
+    button.classList.add('wrong');
+}
+
+
+it becomes red.
+
+In normal English:
+
+IF answer is correct
+    make it green
+ELSE
+    make it red
+
+15. Why do we use ===?
+
+You have:
+
+button.dataset.correct === "true"
+
+
+=== means:
+
+Is this exactly equal to this?
+
+So we're asking:
+
+Is button.dataset.correct exactly "true"?
+
+
+If yes:
+
+button.classList.add('correct');
+
+
+If no:
+
+button.classList.add('wrong');
+
+16. Now let's understand the Submit section
+
+After all the answer-button code, we have:
+
+document.querySelector('.sub').addEventListener('click', () => {
+
+
+Remember your Submit button:
+
+<button class="sub">Submit</button>
+
+
+So:
+
+document.querySelector('.sub')
+
+
+finds your Submit button.
+
+Then:
+
+.addEventListener('click', () => {
+
+
+means:
+
+When Submit is clicked, run this code.
+
+17. Creating the score
+
+Then:
+
+let score = 0;
+
+
+We create a variable called score.
+
+At the beginning:
+
+score = 0
+
+
+That's because the user hasn't been given any marks yet.
+
+We use let here because the score will change.
+
+For example:
+
+0
+↓
+1
+↓
+2
+↓
+3
+
+18. Going through every question
+
+Then:
+
+questions.forEach(question => {
+
+
+Again, this means:
+
+Look at every question one by one.
+
+So:
+
+Question 1
+Question 2
+Question 3
+Question 4
+Question 5
+
+19. Finding the selected correct answer
+
+Now this line is very clever:
+
+const selected = question.querySelector('.btn.correct');
+
+
+Remember:
+
+.btn.correct
+
+
+means a button that has both:
+
+btn
+correct
+
+
+So we're asking:
+
+"Inside this question, is there a button that has been marked as correct?"
+
+If the user selected the correct answer:
+
+<button class="btn correct">
+
+
+JavaScript finds it.
+
+If they selected a wrong answer:
+
+<button class="btn wrong">
+
+
+JavaScript doesn't find a .btn.correct.
+
+20. Checking if the answer was correct
+
+Then:
+
+if (selected) {
+    score++;
+}
+
+
+This means:
+
+If a correct answer was selected, increase the score.
+
+The:
+
+score++;
+
+
+is just a short way of writing:
+
+score = score + 1;
+
+
+So:
+
+score = 0
+
+correct answer
+↓
+score = 1
+
+correct answer
+↓
+score = 2
+
+correct answer
+↓
+score = 3
+
+21. Showing the final mark
+
+Finally:
+
+alert("Your mark is: " + score + " / " + questions.length);
+
+
+alert() creates a small popup.
+
+For example:
+
+Your mark is: 4 / 5
+
+22. What is questions.length?
+
+Remember:
+
+const questions = document.querySelectorAll('.flex');
+
+
+You have 5 .flex elements.
+
+So:
+
+questions.length
+
+
+gives:
+
+5
+
+
+Therefore:
+
+"Your mark is: " + score + " / " + questions.length
+
+
+might become:
+
+Your mark is: 4 / 5
+
+23. The entire process
+
+Let's imagine you answer the quiz.
+
+Question 1
+
+You click:
+
+B. South Africa
+
+
+JavaScript sees:
+
+data-correct="true"
+
+
+So:
+
+B becomes GREEN
+
+Question 2
+
+You click:
+
+A. 1960
+
+
+JavaScript sees:
+
+data-correct="false"
+
+
+So:
+
+A becomes RED
+
+
+Notice that Question 1 stays green.
+
+That's because we're removing the colors only from the buttons belonging to the current question.
+
+Question 3
+
+You select Shearer:
+
+C. Shearer
+
+
+It becomes green.
+
+Now we have:
+
+Q1 ✅
+Q2 ❌
+Q3 ✅
+Q4 ?
+Q5 ?
+
+Submit
+
+When you press Submit:
+
+let score = 0;
+
+
+Then JavaScript checks each question:
+
+Q1 → correct → score = 1
+Q2 → wrong   → score = 1
+Q3 → correct → score = 2
+Q4 → correct → score = 3
+Q5 → wrong   → score = 3
+
+
+Finally:
+
+alert(...)
+
+
+shows:
+
+Your mark is: 3 / 5
+
+24. One important thing to understand
+
+There are two different loops in your code.
+
+The first one handles clicking answers:
+
+questions.forEach(question => {
+    ...
+});
+
+
+It sets up the behavior of the quiz.
+
+The second one happens when you click Submit:
+
+questions.forEach(question => {
+    ...
+});
+
+
+It checks the answers and calculates the score.
+
+So you can think of it like this:
+
+FIRST PART
+↓
+Set up the buttons
+↓
+Wait for clicks
+↓
+Show green/red
+
+
+SECOND PART
+↓
+Wait for Submit
+↓
+Check all questions
+↓
+Count correct answers
+↓
+Show score
+
+The 6 things I recommend you learn from this code
+
+Since you're a beginner, don't try to memorize everything. Focus on these six concepts:
+
+const / let → storing information
+querySelector() → finding HTML elements
+forEach() → going through multiple elements
+addEventListener() → reacting to user actions
+if / else → making decisions
+classList.add/remove() → changing CSS classes
+
+Once you understand those six, you'll be able to build much more interesting JavaScript projects.
