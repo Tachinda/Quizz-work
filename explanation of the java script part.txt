@@ -1,4 +1,4 @@
-  Let's take it slowly, as if you're just starting JavaScript. The good thing is that your quiz is a great example for learning JavaScript because it uses the most important beginner concepts: variables, loops, functions, events, conditions, and DOM manipulation.
+  Let's try it slowly, as if you're just starting JavaScript. The good thing is that your quiz is a great example for learning JavaScript because it uses the most important beginner concepts: variables, loops, functions, events, conditions, and DOM manipulation.
 
 Here is the code again:
 
